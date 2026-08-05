@@ -23,3 +23,10 @@ jobs:
       - name: Build and test
         working-directory: backend
         run: mvn -B verify
+
+      - name: Build and test
+        working-directory: backend
+        run: mvn -B verify
+        env:
+        OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+
