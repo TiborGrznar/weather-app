@@ -15,7 +15,13 @@ public class WeatherService {
     private String apiKey;
 
     // Reused across calls; RestClient instances are safe to share
-    RestClient restClient = RestClient.create();
+    private final RestClient restClient;
+
+    public WeatherService(RestClient.Builder restClientBuilder) {
+        this.restClient = restClientBuilder.build();
+    }
+
+
 
     public WeatherResponse getWeather(String city) {
 
@@ -28,7 +34,7 @@ public class WeatherService {
                 .body(OpenWeatherApiResponse.class);
 
         // OpenWeatherMap returns "weather" as a list; we only need the first entry's description
-        String description = response.weather().get(0).description;
+        String description = response.weather().get(0).description();
 
         // Map the external API's raw shape onto our own public DTO
         return new WeatherResponse(
