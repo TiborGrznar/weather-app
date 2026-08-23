@@ -67,6 +67,6 @@ Every push/PR to `main` builds and tests the backend via GitHub Actions (`.githu
 - [x] Unit and integration tests
 - [x] CI/CD pipeline
 - [x] CORS configuration
-- [ ] Global error handling
+- [x] Global error handling
 - [ ] Frontend (React + TypeScript)
 git status
