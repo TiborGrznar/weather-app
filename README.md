@@ -66,6 +66,7 @@ Every push/PR to `main` builds and tests the backend via GitHub Actions (`.githu
 - [x] Backend: `WeatherService` + `WeatherController`
 - [x] Unit and integration tests
 - [x] CI/CD pipeline
-- [ ] CORS configuration
+- [x] CORS configuration
 - [ ] Global error handling
 - [ ] Frontend (React + TypeScript)
+git status
