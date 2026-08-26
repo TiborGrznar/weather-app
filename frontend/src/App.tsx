@@ -1,5 +1,7 @@
 import { useState } from "react";
 import type { WeatherResponse } from "./types/weather";
+import WeatherResult from "./components/WeatherResult";
+
 
 function App() {
   const [city, setCity] = useState("");
@@ -22,13 +24,7 @@ function App() {
       />
       <button onClick={handleSearch}>Search</button>
 
-      {weather && (
-        <div>
-          <p>{weather.city}</p>
-          <p>{weather.temperature}°C</p>
-          <p>{weather.description}</p>
-        </div>
-      )}
+      {weather && <WeatherResult weather={weather} />}
     </div>
   );
 }
