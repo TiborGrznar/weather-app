@@ -8,10 +8,12 @@ function App() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState<WeatherResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
  
   const handleSearch = async () => {
     setError(null);
     setWeather(null);
+    setLoading(true);
   
 
   try {
@@ -27,6 +29,8 @@ function App() {
       setWeather(data);
     } catch {
       setError("Could not reach the server. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,8 +43,9 @@ function App() {
         onChange={(event) => setCity(event.target.value)}
         placeholder="Enter a city"
       />
-      <button onClick={handleSearch}>Search</button>
-
+      <button onClick={handleSearch} disabled={loading}>Search</button>
+      {loading && <p>Loading...</p>}
+      
       {weather && <WeatherResult weather={weather} />}
       {error && <ErrorMessage message={error} />}
     </div>
