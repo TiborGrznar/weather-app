@@ -15,7 +15,7 @@ function App() {
   
 
   try {
-      const response = await fetch(`http://localhost:8080/api/weather?city=${city}`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/weather?city=${city}`);
 
       if (!response.ok) {
         const errorData = await response.json();
