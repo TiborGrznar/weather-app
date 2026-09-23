@@ -14,6 +14,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleCityNotFound(HttpClientErrorException.NotFound ex) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
-                .body(new ErrorResponse("City not found"));
+                .body(new ErrorResponse("City not found!"));
     }
 }
