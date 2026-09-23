@@ -1,9 +1,10 @@
+import type { ReactElement } from "react";
 import type { WeatherCondition } from "../types/weather";
 
 // Shared cloud outline reused by every icon that involves clouds
 const CLOUD_PATH = "M6 17.5a4 4 0 0 1 .5-7.97A5.5 5.5 0 0 1 17 9.5a3.5 3.5 0 0 1-.5 8H6z";
 
-const weatherIcons: Record<WeatherCondition, JSX.Element> = {
+const weatherIcons: Record<WeatherCondition, ReactElement> = {
   CLEAR: (
     <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
       <circle cx="12" cy="12" r="4.5" />
