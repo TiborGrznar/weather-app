@@ -8,7 +8,7 @@ function WeatherResult({ weather }: { weather: WeatherResponse }) {
         {weather.city}, {weather.country}
       </p>
 
-      <div className="flex items-center justify-center gap-3 my-1 text-gray-900 dark:text-white">
+      <div className="flex items-center justify-center gap-3 my-1 text-gray-700 dark:text-white">
         <WeatherIcon condition={weather.condition} />
         <p className="text-4xl font-semibold">
           {Math.round(weather.temperature)}°C
@@ -21,23 +21,23 @@ function WeatherResult({ weather }: { weather: WeatherResponse }) {
       </p>
 
       <div className="grid grid-cols-2 gap-2 mt-4 text-left">
-        <div className="bg-gray-50 dark:bg-gray-700 rounded-lg px-3 py-2">
+        <div className="bg-gray-100 dark:bg-gray-700 rounded-lg px-3 py-2">
           <p className="text-xs text-gray-400 dark:text-gray-400">Feels like</p>
-          <p className="text-sm font-medium text-gray-700 dark:text-white">
+          <p className="text-sm font-medium text-gray-600 dark:text-white">
             {Math.round(weather.feelsLike)}°C
           </p>
         </div>
-        <div className="bg-gray-50 dark:bg-gray-700 rounded-lg px-3 py-2">
+        <div className="bg-gray-100 dark:bg-gray-700 rounded-lg px-3 py-2">
           <p className="text-xs text-gray-400 dark:text-gray-400">Humidity</p>
           <p className="text-sm font-medium text-gray-700 dark:text-white">{weather.humidity}%</p>
         </div>
-        <div className="bg-gray-50 dark:bg-gray-700 rounded-lg px-3 py-2">
+        <div className="bg-gray-100 dark:bg-gray-700 rounded-lg px-3 py-2">
           <p className="text-xs text-gray-400 dark:text-gray-400">Wind</p>
           <p className="text-sm font-medium text-gray-700 dark:text-white">
             {weather.windSpeed.toFixed(1)} km/h
           </p>
         </div>
-        <div className="bg-gray-50 dark:bg-gray-700 rounded-lg px-3 py-2">
+        <div className="bg-gray-100 dark:bg-gray-700 rounded-lg px-3 py-2">
           <p className="text-xs text-gray-400 dark:text-gray-400">Pressure</p>
           <p className="text-sm font-medium text-gray-700 dark:text-white">{weather.pressure} hPa</p>
         </div>

@@ -3,7 +3,6 @@ import type { WeatherResponse } from "./types/weather";
 import WeatherResult from "./components/WeatherResult";
 import ErrorMessage from "./components/ErrorMessage";
 
-
 function App() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState<WeatherResponse | null>(null);
@@ -14,14 +13,13 @@ function App() {
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
- 
+
   const handleSearch = async () => {
     setError(null);
     setWeather(null);
     setLoading(true);
-  
 
-  try {
+    try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/weather?city=${city}`);
 
       if (!response.ok) {
@@ -40,8 +38,8 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-      <div className="relative w-full max-w-sm bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex items-center justify-center">
+      <div className="relative w-full max-w-sm bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
         <button
           onClick={() => setDarkMode(!darkMode)}
           className="absolute top-4 right-4 text-xs text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600 rounded-lg px-2 py-1"
@@ -49,7 +47,7 @@ function App() {
           {darkMode ? "Light mode" : "Dark mode"}
         </button>
 
-        <h1 className="text-2xl font-semibold text-center mb-5 text-gray-900 dark:text-white">
+        <h1 className="text-2xl font-semibold text-center mb-5 text-gray-700 dark:text-white">
           Weather App
         </h1>
 
