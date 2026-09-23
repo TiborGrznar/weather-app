@@ -2,23 +2,21 @@ package com.tgrznar.weather_app.service;
 
 import com.tgrznar.weather_app.client.OpenWeatherMapResponse;
 import com.tgrznar.weather_app.dto.WeatherResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 @Service
+@RequiredArgsConstructor
 public class WeatherService {
 
     // Injected from application.properties, which resolves it from OPENWEATHER_API_KEY env variable (.env in dev)
     @Value("${openweather.api.key}")
     private String apiKey;
 
-    // Reused across calls; RestClient instances are safe to share
+    // Injected from WebConfig's weatherRestClient bean; RestClient instances are safe to share
     private final RestClient restClient;
-
-    public WeatherService(RestClient.Builder restClientBuilder) {
-        this.restClient = restClientBuilder.build();
-    }
 
     public WeatherResponse getWeather(String city) {
 

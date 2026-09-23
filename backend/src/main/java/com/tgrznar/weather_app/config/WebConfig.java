@@ -1,6 +1,8 @@
 package com.tgrznar.weather_app.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestClient;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -14,5 +16,11 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
                 .allowedOrigins("http://localhost:5173");
+    }
+
+    // Built once at startup and reused across every request (RestClient instances are thread-safe).
+    @Bean
+    public RestClient weatherRestClient(RestClient.Builder builder) {
+        return builder.build();
     }
 }
