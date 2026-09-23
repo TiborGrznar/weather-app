@@ -7,12 +7,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    // Restrict cross-origin access to our own frontend only, so other websites
-    // can't call our backend (and indirectly consume our OpenWeatherMap quota)
-    // from their visitors' browsers.
+    // Vite dev server (npm run dev) and the Dockerized Nginx frontend are both allowed,
+    // so the same backend works for local development and for the docker-compose setup.
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
-                .allowedOrigins("http://localhost:5173");
+                .allowedOrigins("http://localhost:5173", "http://localhost:8081");
     }
 }
