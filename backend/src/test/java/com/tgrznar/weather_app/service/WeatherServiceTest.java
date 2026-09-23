@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.data.Offset.offset;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.queryParam;
@@ -27,8 +28,17 @@ class WeatherServiceTest {
         String fakeJson = """
                 {
                   "name": "Kosice",
-                  "main": { "temp": 21.5 },
-                  "weather": [ { "description": "clear sky" } ]
+                  "sys": { "country": "Slovakia" },
+                  "main": {
+                    "temp": 21.5,
+                    "feels_like": 20.8,
+                    "temp_min": 18.0,
+                    "temp_max": 24.0,
+                    "pressure": 1015,
+                    "humidity": 55
+                  },
+                  "weather": [ { "id": 800, "description": "clear sky" } ],
+                  "wind": { "speed": 3.4 }
                 }
                 """;
 
@@ -41,7 +51,15 @@ class WeatherServiceTest {
         WeatherResponse result = weatherService.getWeather("Kosice");
 
         assertThat(result.city()).isEqualTo("Kosice");
+        assertThat(result.country()).isEqualTo("Slovakia");
         assertThat(result.temperature()).isEqualTo(21.5);
         assertThat(result.description()).isEqualTo("clear sky");
+        assertThat(result.condition()).isEqualTo("CLEAR");
+        assertThat(result.feelsLike()).isEqualTo(20.8);
+        assertThat(result.humidity()).isEqualTo(55);
+        assertThat(result.windSpeed()).isCloseTo(12.24, offset(0.01));
+        assertThat(result.pressure()).isEqualTo(1015);
+        assertThat(result.minTemperature()).isEqualTo(18.0);
+        assertThat(result.maxTemperature()).isEqualTo(24.0);
     }
 }
