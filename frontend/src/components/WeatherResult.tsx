@@ -1,4 +1,5 @@
 import type { WeatherResponse } from "../types/weather";
+import WeatherIcon from "./WeatherIcon";
 
 function WeatherResult({ weather }: { weather: WeatherResponse }) {
   return (
@@ -7,9 +8,13 @@ function WeatherResult({ weather }: { weather: WeatherResponse }) {
         {weather.city}, {weather.country}
       </p>
 
-      <p className="text-4xl font-semibold my-1 text-gray-900 dark:text-white">
-        {Math.round(weather.temperature)}°C
-      </p>
+      <div className="flex items-center justify-center gap-3 my-1 text-gray-900 dark:text-white">
+        <WeatherIcon condition={weather.condition} />
+        <p className="text-4xl font-semibold">
+          {Math.round(weather.temperature)}°C
+        </p>
+      </div>
+
       <p className="text-sm text-gray-500 dark:text-gray-400">{weather.description}</p>
       <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
         H: {Math.round(weather.maxTemperature)}°C&nbsp;&nbsp;L: {Math.round(weather.minTemperature)}°C
