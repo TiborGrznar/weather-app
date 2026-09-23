@@ -4,14 +4,18 @@ import com.tgrznar.weather_app.dto.WeatherResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.restclient.test.autoconfigure.RestClientTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
+import org.springframework.web.client.HttpClientErrorException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.data.Offset.offset;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.queryParam;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @RestClientTest(WeatherService.class)
 class WeatherServiceTest {
@@ -61,5 +65,17 @@ class WeatherServiceTest {
         assertThat(result.pressure()).isEqualTo(1015);
         assertThat(result.minTemperature()).isEqualTo(18.0);
         assertThat(result.maxTemperature()).isEqualTo(24.0);
+    }
+
+    @Test
+    void getWeather_throwsNotFoundWhenCityDoesNotExist() {
+
+        server.expect(requestTo(org.hamcrest.Matchers.startsWith(
+                        "https://api.openweathermap.org/data/2.5/weather")))
+                .andExpect(queryParam("q", "Nonexistentcity"))
+                .andRespond(withStatus(HttpStatus.NOT_FOUND));
+
+        assertThatThrownBy(() -> weatherService.getWeather("Nonexistentcity"))
+                .isInstanceOf(HttpClientErrorException.NotFound.class);
     }
 }
